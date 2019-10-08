@@ -11,11 +11,13 @@ class Player
 end
 
 class TicTacToe
-  
+   attr_accessor :board
+
   def initialize(players)
     @players = []
     @players[0] = players[0]
     @players[1] = players[1]
+    @board = (1..9).to_a
   end
   
 end
@@ -37,9 +39,13 @@ def start_game
   # game.print_board
 
   # Print the keyboard with numbers from 1 to 9
-  def print_board
-
-  end
 end
 
-start_game
+def print_board(grid)
+  puts "#{grid[0..2].join(" ")}"
+  puts "#{grid[3..5].join(" ")}"
+  puts "#{grid[6..8].join(" ")}" 
+end
+
+game = start_game
+print_board(game.board)
