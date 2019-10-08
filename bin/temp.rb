@@ -61,3 +61,18 @@ def start_game
 end
 
 start_game
+
+  def game_over?
+    # minimum number of turns = 5
+    if     (board[0..2]).uniq.count == 1 ||  
+           (board[3..5]).uniq.count == 1 || 
+           (board[6..7]).uniq.count == 1 || 
+        (board[0, 3, 6]).uniq.count == 1 || 
+        (board[1, 4, 7]).uniq.count == 1 || 
+        (board[2, 5, 8]).uniq.count == 1 || 
+        (board[0, 4, 8]).uniq.count == 1 || 
+        (board[2, 4, 6]).uniq.count == 1
+      then return true
+    false
+    end
+  end

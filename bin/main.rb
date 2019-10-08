@@ -30,9 +30,11 @@ class TicTacToe
 
   # check if the game is over
   def game_over?
-    # minimum number of turns = 5
-    # if row or colum or diagonal
-    # maximum if turn == 9 
+    ['012', '345', '678', '036', '147', '258', '048', '246'].each do |l|
+      l_0, l_1, l_2 = l[0].to_i, l[1].to_i, l[2].to_i 
+        return true if @board[l_0] == @board[l_1] && @board[l_1] == @board[l_2]
+      
+    end
     false
   end
 
