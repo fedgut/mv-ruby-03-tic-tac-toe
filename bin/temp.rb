@@ -21,19 +21,6 @@ class TicTacToe
   end
 
 
-  def turn
-    # TODO: validation
-    # do 
-    puts @players[turn] << ' please chose a number: '
-    num = gets.chomp
-    # validate input num from 1-9 not already choose
-    # if num >= 1 && num <=9 && \d\.match(board[num-1])
-    puts 'Number already choosen';
-    # while invalid_input
-
-    turn += 1
-  end
-
   # 
   def end_game
     puts "We have a draw"
