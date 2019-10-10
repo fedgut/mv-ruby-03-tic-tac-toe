@@ -50,13 +50,29 @@ end
 
 # ask the player names
 def ask_names
+  accept_players = nil
   players = []
-  2.times do |i|
-    print "Please tell us player #{i + 1} name: "
-    name = gets.chomp
-    # TODO: validate (only letters - min 3)
-    # http://ruby.bastardsbook.com/chapters/exception-handling/
-    players[i] = Player.new(i, name)
+  until accept_players == true
+    2.times do |i|
+      accept_name = nil
+      until accept_name == true
+        print "Please tell us player #{i + 1} name: "
+        name = gets.chomp
+        name = name.gsub(/\d/, "")   
+        name = name.gsub(/\W/, "")  
+        if name.length < 3
+          puts 'Please enter at least 3 A-Z-only characters'
+        else 
+          accept_name = true
+        end
+      end
+      players[i] = Player.new(i, name)
+    end
+    if players[0].name.downcase.eql?(players[1].name.downcase)
+      puts 'Players cant have the same name!'
+    else
+      accept_players = true
+    end
   end
   players
 end
@@ -73,6 +89,8 @@ end
 def turn(game)
   # TODO: validate (only number, min 1 && max 1, available number)
   # http://ruby.bastardsbook.com/chapters/exception-handling/
+  # accept_number = false
+  # until accept_number == true
   print game.players[game.turn % 2].name + ' please choose a number: '
   num = gets.chomp
   puts num
