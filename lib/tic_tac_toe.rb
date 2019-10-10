@@ -31,12 +31,12 @@ class TicTacToe
 
   def game_over?
     %w[012 345 678 036 147 258 048 246].each do |l|
-      if @board[l[0].to_i] == @board[l[1].to_i] &&
-         @board[l[1].to_i] == @board[l[2].to_i]
-        @status = @enum_status[:win]
-        @turn -= 1
-        return true
-      end
+      next unless @board[l[0].to_i] == @board[l[1].to_i] &&
+                  @board[l[1].to_i] == @board[l[2].to_i]
+
+      @status = @enum_status[:win]
+      @turn -= 1
+      return true
     end
 
     # TODO: Improve to check if there is a draw before turn 9
