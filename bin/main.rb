@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require './lib/TicTacToe'
-require './lib/Player'
+require './lib/tic_tac_toe'
+require './lib/player'
 
 def start_game
   puts "Welcome to Tic Tac Toe game.\n\n"
@@ -12,13 +12,29 @@ def start_game
 end
 
 def get_player_names
+  accept_players = nil
   players = []
-  2.times do |i|
-    print "Please tell us player #{i + 1} name: "
-    name = gets.chomp
-    # TDO: valOidate (only letters - min 3)
-    # http://ruby.bastardsbook.com/chapters/exception-handling/
-    players[i] = Player.new(i, name)
+  until accept_players == true
+    2.times do |i|
+      accept_name = nil
+      until accept_name == true
+        print "Please tell us player #{i + 1} name: "
+        name = gets.chomp
+        name = name.gsub(/\d/, "")   
+        name = name.gsub(/\W/, "")  
+        if name.length < 3
+          puts 'Please enter at least 3 A-Z-only characters'
+        else 
+          accept_name = true
+        end
+      end
+      players[i] = Player.new(i, name)
+    end
+    if players[0].name.downcase.eql?(players[1].name.downcase)
+      puts 'Players cant have the same name!'
+    else
+      accept_players = true
+    end
   end
   players
 end
@@ -34,26 +50,17 @@ end
 def turn(game)
   # TODO: validate (only number, min 1 && max 1, available number)
   # http://ruby.bastardsbook.com/chapters/exception-handling/
-  player_id = game.turn % 2
-  print game.players[player_id].name + ' please choose a number: '
+  print game.current_player.name + ' please choose a number: '
   num = gets.chomp
-  puts num
 
   game.set(num.to_i)
-
-  # if num >= 1 && num <= 9) do
-  #   puts 'Number already choosen';
-  # end
-
-  game.turn += 1
   print_game_board(game)
   end_game if game.game_over?
 end
 
-def end_game(winner)
-  # puts "Congratulation #{players[turn % 2].name} you win!"
-  if winner
-    puts "Congratulation #{winner.name} you win!"
+def end_game
+  if(game.status.eql?(game.enum_status[:win]))
+    puts "Congratulation #{game.current_player.name} you win!"
   else
     puts "We have a draw!"
   end
@@ -61,7 +68,15 @@ def end_game(winner)
   puts "\nWant to play again? [Y/n]"
   play_again = gets.chomp
 
-  start_game unless play_again.eql?('n')
+  play_again.eql?('n') ? start_game : finish
 end
 
-game = start_game
+def finish
+  puts "Thanks for playing Tic Tac Toc!"
+end
+
+begin
+  game = start_game
+rescue Interrupt
+  finish
+end
