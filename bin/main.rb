@@ -50,8 +50,25 @@ end
 def turn(game)
   # TODO: validate (only number, min 1 && max 1, available number)
   # http://ruby.bastardsbook.com/chapters/exception-handling/
-  print game.current_player.name + ' please choose a number: '
-  num = gets.chomp
+  digit = false
+  repeat = true
+  while digit == false &&
+        repeat == true
+        
+    print game.current_player.name + ' please choose a digit: '
+    num_r = gets.chomp
+    num = num_r.gsub(/\D/, "") 
+    if num.length == 1
+      digit = true
+    else
+      puts "\n\n             #{num_r}        is not a digit \n\n"
+    end
+    unless game.board.include? num
+      puts "\n\n number      #{num_r}       was already used \n\n"
+    else
+      repeat = false 
+    end    
+  end
 
   game.set(num.to_i)
   print_game_board(game)
