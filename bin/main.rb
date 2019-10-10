@@ -1,68 +1,29 @@
-#!/usr/bin/env ruby 
+#!/usr/bin/env ruby
 
-class Player
-  attr_accessor :id
-  attr_accessor :name
-
-  def initialize(id, name)
-    @id = id
-    @name = name
-  end
-end
-
-class TicTacToe
-  attr_accessor :board
-  attr_accessor :players
-  attr_accessor :turn
-
-  def initialize(players)
-    @players = []
-    @players[0] = players[0]
-    @players[1] = players[1]
-    @board = (1..9).to_a
-    @turn = 0
-  end
-  
-  def set(num)
-    player_id = @players[@turn % 2].id
-    @board[num - 1] = player_id == 0 ? 'O' : 'X'
-  end
-
-  # check if the game is over
-  def game_over?
-    ['012', '345', '678', '036', '147', '258', '048', '246'].each do |l|
-      l_0, l_1, l_2 = l[0].to_i, l[1].to_i, l[2].to_i 
-        return true if @board[l_0] == @board[l_1] && @board[l_1] == @board[l_2]
-      
-    end
-    false
-  end
-
-end
+require './lib/TicTacToe'
+require './lib/Player'
 
 def start_game
   puts "Welcome to Tic Tac Toe game.\n\n"
-  game = TicTacToe.new(ask_names)
-  print_board(game)
+  game = TicTacToe.new(get_player_names)
+  print_game_board(game)
 
   turn(game) until game.game_over?
 end
 
-# ask the player names
-def ask_names
+def get_player_names
   players = []
   2.times do |i|
     print "Please tell us player #{i + 1} name: "
     name = gets.chomp
-    # TODO: validate (only letters - min 3)
+    # TDO: valOidate (only letters - min 3)
     # http://ruby.bastardsbook.com/chapters/exception-handling/
     players[i] = Player.new(i, name)
   end
   players
 end
 
-# Print the keyboard with numbers from 1 to 9
-def print_board(game)
+def print_game_board(game)
   puts "\n"
   puts "#{game.board[0..2].join(" | ")}"
   puts "#{game.board[3..5].join(" | ")}"
@@ -73,7 +34,8 @@ end
 def turn(game)
   # TODO: validate (only number, min 1 && max 1, available number)
   # http://ruby.bastardsbook.com/chapters/exception-handling/
-  print game.players[game.turn % 2].name + ' please choose a number: '
+  player_id = game.turn % 2
+  print game.players[player_id].name + ' please choose a number: '
   num = gets.chomp
   puts num
 
@@ -84,7 +46,22 @@ def turn(game)
   # end
 
   game.turn += 1
-  print_board(game)
+  print_game_board(game)
+  end_game if game.game_over?
+end
+
+def end_game(winner)
+  # puts "Congratulation #{players[turn % 2].name} you win!"
+  if winner
+    puts "Congratulation #{winner.name} you win!"
+  else
+    puts "We have a draw!"
+  end
+
+  puts "\nWant to play again? [Y/n]"
+  play_again = gets.chomp
+
+  start_game unless play_again.eql?('n')
 end
 
 game = start_game
