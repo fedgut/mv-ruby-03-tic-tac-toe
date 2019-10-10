@@ -54,7 +54,8 @@ def ask_names
   2.times do |i|
     print "Please tell us player #{i + 1} name: "
     name = gets.chomp
-    # TODO: validate (min 3 letters)
+    # TODO: validate (only letters - min 3)
+    # http://ruby.bastardsbook.com/chapters/exception-handling/
     players[i] = Player.new(i, name)
   end
   players
@@ -62,12 +63,16 @@ end
 
 # Print the keyboard with numbers from 1 to 9
 def print_board(game)
-  puts "#{game.board[0..2].join(" ")}"
-  puts "#{game.board[3..5].join(" ")}"
-  puts "#{game.board[6..8].join(" ")}" 
+  puts "\n"
+  puts "#{game.board[0..2].join(" | ")}"
+  puts "#{game.board[3..5].join(" | ")}"
+  puts "#{game.board[6..8].join(" | ")}"
+  puts "\n"
 end
 
 def turn(game)
+  # TODO: validate (only number, min 1 && max 1, available number)
+  # http://ruby.bastardsbook.com/chapters/exception-handling/
   print game.players[game.turn % 2].name + ' please choose a number: '
   num = gets.chomp
   puts num
