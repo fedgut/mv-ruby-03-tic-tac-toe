@@ -6,6 +6,8 @@ class TicTacToe
   attr_reader :board
   attr_reader :players
   attr_reader :turn
+  attr_reader :status
+  attr_reader :enum_status
 
   def initialize(players)
     @players = []
@@ -32,6 +34,8 @@ class TicTacToe
       if @board[l[0].to_i] == @board[l[1].to_i] &&
          @board[l[1].to_i] == @board[l[2].to_i]
         @status = @enum_status[:win]
+        @turn -= 1
+        return true
       end
     end
 

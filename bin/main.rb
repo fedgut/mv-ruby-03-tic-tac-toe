@@ -55,11 +55,11 @@ def turn(game)
 
   game.set(num.to_i)
   print_game_board(game)
-  end_game if game.game_over?
+  end_game(game) if game.game_over?
 end
 
-def end_game
-  if(game.status.eql?(game.enum_status[:win]))
+def end_game(game)
+  if game.status.eql? game.enum_status[:win]
     puts "Congratulation #{game.current_player.name} you win!"
   else
     puts "We have a draw!"
@@ -68,11 +68,11 @@ def end_game
   puts "\nWant to play again? [Y/n]"
   play_again = gets.chomp
 
-  play_again.eql?('n') ? start_game : finish
+  play_again.eql?('n') ? finish : start_game
 end
 
 def finish
-  puts "Thanks for playing Tic Tac Toc!"
+  puts "\n\nThanks for playing Tic Tac Toe!"
 end
 
 begin
