@@ -17,7 +17,7 @@ class TicTacToe
     @turn = 0
 
     @enum_status = { in_progress: 0, win: 1, draw: 2 } # enum
-    @player_char = %w[O X]
+    @player_char = %w[X 0]
 
     @status = @enum_status[:in_progress]
   end
