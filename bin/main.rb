@@ -19,9 +19,7 @@ def get_player_names
       accept_name = nil
       until accept_name == true
         print "Please tell us player #{i + 1} name: "
-        name = gets.chomp
-        name = name.gsub(/\d/, "")   
-        name = name.gsub(/\W/, "")  
+        name = gets.chomp.gsub(/\d|\W/, "") 
         if name.length < 3
           puts 'Please enter at least 3 A-Z-only characters'
         else 
@@ -85,10 +83,19 @@ def end_game(game)
     puts "We have a draw!"
   end
 
-  puts "\nWant to play again? [Y/n]"
-  play_again = gets.chomp
 
-  play_again.eql?('n') ? finish : start_game
+  ans = nil
+  until ans 
+    puts "\nWant to play again? [Y/n]"
+    play_again = gets.chomp
+    if play_again.eql?('n'|'N')
+       finish 
+       ans = true
+    elsif play_again.eql?('y'|'Y')
+       start_game
+       ans = true
+   end
+  end
 end
 
 def finish
