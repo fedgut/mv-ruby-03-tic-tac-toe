@@ -47,8 +47,8 @@ RSpec.describe TicTacToe do
 
   describe '#current_player' do
     it 'should return the current player' do
-      player1 =  Player.new(1, 'Eduardo')
-      player2 =  Player.new(2, 'Tiago')
+      player1 = Player.new(1, 'Eduardo')
+      player2 = Player.new(2, 'Tiago')
       game = TicTacToe.new([player1, player2])
       game.set(1)
       expect(game.current_player).to eql(player2)
