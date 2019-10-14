@@ -3,11 +3,7 @@
 # ./lib/TicTacToe.rb
 
 class TicTacToe
-  attr_reader :board
-  attr_reader :players
-  attr_reader :turn
-  attr_reader :status
-  attr_reader :enum_status
+  attr_reader :board, :players, :turn, :status, :enum_status
 
   def initialize(players)
     @players = []

@@ -3,8 +3,7 @@
 # ./lib/Player.rb
 
 class Player
-  attr_accessor :id
-  attr_accessor :name
+  attr_reader :id, :name
 
   def initialize(id, name)
     @id = id
