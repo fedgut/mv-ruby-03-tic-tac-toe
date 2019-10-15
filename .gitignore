@@ -20,7 +20,6 @@
 x64/
 x86/
 bld/
-[Bb]in/
 [Oo]bj/
 [Ll]og/
 
@@ -328,3 +327,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Editor config
+.vscode/
