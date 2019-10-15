@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require './lib/tic_tac_toe'
-require './lib/player'
+require_relative '../lib/tic_tac_toe'
+require_relative '../lib/player'
 
 def start_game
   puts "Welcome to Tic Tac Toe game.\n\n"
@@ -14,14 +14,12 @@ end
 def get_player_names
   accept_players = nil
   players = []
-  until accept_players == true
+  until accept_players
     2.times do |i|
       accept_name = nil
-      until accept_name == true
+      until accept_name
         print "Please tell us player #{i + 1} name: "
-        name = gets.chomp
-        name = name.gsub(/\d/, "")   
-        name = name.gsub(/\W/, "")  
+        name = gets.chomp.gsub(/\d|\W/, "") 
         if name.length < 3
           puts 'Please enter at least 3 A-Z-only characters'
         else 
@@ -85,10 +83,19 @@ def end_game(game)
     puts "We have a draw!"
   end
 
-  puts "\nWant to play again? [Y/n]"
-  play_again = gets.chomp
 
-  play_again.eql?('n') ? finish : start_game
+  ans = nil
+  until ans 
+    puts "\nWant to play again? [Y/n]"
+    play_again = gets.chomp
+    if ['n', 'no', 'nah', 'nop', 'never'].include?(play_again.downcase)
+       finish 
+       ans = true
+    elsif ['y', 'yes', 'yah', 'yay'].include?(play_again.downcase)
+       start_game
+       ans = true
+   end
+  end
 end
 
 def finish

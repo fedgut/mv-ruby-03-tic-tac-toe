@@ -3,11 +3,7 @@
 # ./lib/TicTacToe.rb
 
 class TicTacToe
-  attr_reader :board
-  attr_reader :players
-  attr_reader :turn
-  attr_reader :status
-  attr_reader :enum_status
+  attr_reader :board, :players, :turn, :status, :enum_status
 
   def initialize(players)
     @players = []
@@ -17,7 +13,7 @@ class TicTacToe
     @turn = 0
 
     @enum_status = { in_progress: 0, win: 1, draw: 2 } # enum
-    @player_char = %w[X 0]
+    @player_char = %w[X O]
 
     @status = @enum_status[:in_progress]
   end
